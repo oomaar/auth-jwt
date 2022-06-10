@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 // database connection
 const dbURI =
-  "mongodb+srv://omar:ze3791klm2@cluster0.cugxqfj.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://omar:ze3791klm2@cluster0.cugxqfj.mongodb.net/node-auth?retryWrites=true&w=majority";
 mongoose
   .connect(dbURI, {
     useNewUrlParser: true,
