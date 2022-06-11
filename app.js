@@ -24,3 +24,6 @@ mongoose
 // routes
 app.get("/", (req, res) => res.render("home"));
 app.get("/smoothies", (req, res) => res.render("smoothies"));
+
+// Signup
+app.get("/signup", (req, res) => res.render("signup"));
