@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -22,9 +23,6 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-// Fire a function before doc saved to db
-// for more checkout the mongoose hooks docs
-
 // Hashing password process:-
 // ------------------------
 // 1) we take the user's password.
@@ -32,9 +30,13 @@ userSchema.post("save", function (doc, next) {
 // 3) then we hash the salted password (this process generates a complex string).
 // 4) then it's stored to the database.
 // 5) hackers can reverse a simple hashing process so thats why we must add a salt to the password before hashing it.
-userSchema.pre("save", function (next) {
-  console.log("user about to be created and saved", this);
 
+// Fire a function before doc saved to db
+// for more checkout the mongoose hooks docs
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt();
+  // (this) refers to the instase of the user we are trying to create
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
