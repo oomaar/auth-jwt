@@ -8,7 +8,7 @@ const app = express();
 // middleware
 app.use(express.static("public"));
 app.use(express.json());
-app.user(cookieParser());
+app.use(cookieParser());
 
 // view engine
 app.set("view engine", "ejs");
@@ -32,6 +32,8 @@ app.use(authRoutes);
 
 // cookies
 app.get("/set-cookies", (req, res) => {
-  res.setHeader("Set-Cookie", "newUser=true");
+  // res.setHeader("Set-Cookie", "newUser=true");
+
+  res.cookie("newUser", false);
   res.send("you had a cookie");
 });
