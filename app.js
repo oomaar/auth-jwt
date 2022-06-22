@@ -35,5 +35,21 @@ app.get("/set-cookies", (req, res) => {
   // res.setHeader("Set-Cookie", "newUser=true");
 
   res.cookie("newUser", false);
+  // maxAge 1 day
+  res.cookie("employee", true, {
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+  });
+
   res.send("you had a cookie");
+});
+
+app.get("/read-cookies", (req, res) => {
+  const cookies = req.cookies;
+  console.log(
+    "🚀 ~ file: app.js ~ line 49 ~ app.get ~ cookies",
+    cookies.employee
+  );
+
+  res.json(cookies);
 });
