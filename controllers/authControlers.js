@@ -66,7 +66,7 @@ module.exports.signup_post = async (req, res) => {
   try {
     const user = await User.create({ email, password });
     const token = createToken(user._id);
-    res.cookie("jwt call it what you want", token, {
+    res.cookie("jwtCallItWhatYouWantAndMakeItOneWord", token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
@@ -88,7 +88,7 @@ module.exports.login_post = async (req, res) => {
     // User.login is the static method in Users file [DB]
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.cookie("jwt call it what you want", token, {
+    res.cookie("jwtCallItWhatYouWantAndMakeItOneWord", token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
