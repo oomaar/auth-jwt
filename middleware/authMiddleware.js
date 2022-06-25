@@ -34,7 +34,7 @@ const requireAuth = (req, res, next) => {
 
 // Check current user
 const checkUser = (req, res, next) => {
-  const token = req.jwt.jwtCallItWhatYouWantAndMakeItOneWord;
+  const token = req.cookies.jwtCallItWhatYouWantAndMakeItOneWord;
 
   if (token) {
     jwt.verify(
