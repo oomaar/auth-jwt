@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 // database connection
+const PORT = 3000;
 const dbURI =
   "mongodb+srv://omar:ze3791klm2@cluster0.cugxqfj.mongodb.net/node-auth?retryWrites=true&w=majority";
 mongoose
@@ -22,7 +23,9 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then((result) => app.listen(3000))
+  .then((result) =>
+    app.listen(PORT, () => console.log(`Server is up and running on ${PORT}`))
+  )
   .catch((err) => console.log(err));
 
 // routes
