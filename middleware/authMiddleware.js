@@ -12,16 +12,16 @@ const requireAuth = (req, res, next) => {
       "this is the secret, this should be long and in a .env file",
       (err, decodedToken) => {
         if (err) {
-          console.log(
-            "🚀 ~ file: authMiddleware.js ~ line 15 ~ requireAuth ~ err",
-            err.message
-          );
+          //   console.log(
+          //     "🚀 ~ file: authMiddleware.js ~ line 15 ~ requireAuth ~ err",
+          //     err.message
+          //   );
           res.redirect("/login");
         } else {
-          console.log(
-            "🚀 ~ file: authMiddleware.js ~ line 14 ~ requireAuth ~ decodedToken",
-            decodedToken
-          );
+          //   console.log(
+          //     "🚀 ~ file: authMiddleware.js ~ line 14 ~ requireAuth ~ decodedToken",
+          //     decodedToken
+          //   );
           next();
         }
       }
