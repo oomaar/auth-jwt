@@ -52,7 +52,7 @@ module.exports.signup_post = async (req, res) => {
     res.status(201).json({ user: user._id });
   } catch (error) {
     const errors = handleErrors(error);
-    res.status(400).json(errors);
+    res.status(400).json({ errors });
   }
 };
 
