@@ -2,11 +2,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../db/models/Users");
 
 const handleErrors = (error) => {
+  // console.log(
+  //   "🚀 ~ file: authControlers.js ~ line 5 ~ handleErrors ~ error",
+  //   error.message,
+  //   "Code",
+  //   error.code
+  // );
   const errors = {
     email: "",
     password: "",
   };
 
+  // Signup Errors
   // Validation errors
   if (error.message.includes("user validation failed")) {
     Object.values(error.errors).forEach(({ properties }) => {
@@ -18,10 +25,24 @@ const handleErrors = (error) => {
   if (error.code === 11000) {
     errors.email = "This email is already registered";
   }
+  // Signup Errors
+
+  // Login Errors
+  // incorrect email
+  if (error.message === "Incorrect Email") {
+    errors.email = "That email is not registered";
+  }
+
+  // incorrect password
+  if (error.message === "Incorrect Password") {
+    errors.password = "That password is incorrect";
+  }
+  // Login Errors
 
   return errors;
 };
 
+// 3 Days as a max age for the cookie
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id) => {
@@ -61,5 +82,19 @@ module.exports.login_get = (req, res) => {
 };
 
 module.exports.login_post = async (req, res) => {
-  res.send("Exisiting User");
+  const { email, password } = req.body;
+
+  try {
+    // User.login is the static method in Users file [DB]
+    const user = await User.login(email, password);
+    const token = createToken(user._id);
+    res.cookie("jwt call it what you want", token, {
+      httpOnly: true,
+      maxAge: maxAge * 1000,
+    });
+    res.status(200).json({ user: user._id });
+  } catch (error) {
+    const errors = handleErrors(error);
+    res.status(400).json({ errors });
+  }
 };

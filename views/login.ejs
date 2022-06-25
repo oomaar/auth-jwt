@@ -38,6 +38,10 @@
       });
 
       const data = await res.json();
+      // console.log(
+      //   "🚀 ~ file: login.ejs ~ line 41 ~ form.addEventListener ~ data",
+      //   data
+      // );
 
       if (data.errors) {
         emailError.textContent = data.errors.email;
@@ -49,7 +53,7 @@
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: signup.ejs ~ line 30 ~ form.addEventListener ~ error",
+        "🚀 ~ file: login.ejs ~ line 30 ~ form.addEventListener ~ error",
         error
       );
     }
